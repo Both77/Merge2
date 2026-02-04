@@ -36,7 +36,7 @@
       <header class="top-bar">
         <div class="welcome">
           <h1>Dashboard Overview</h1>
-          <p>Welcome back, Admin</p>
+          <p>Welcome back, Admin ZinToo</p>
         </div>
         <div class="user-profile">
           <div class="avatar">JD</div>
