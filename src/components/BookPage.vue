@@ -4,7 +4,7 @@
       <div class="title-area">
         <button class="back-btn" @click="goBack">
           <span class="back-icon">←</span>
-          <span>Back to Dashboard</span>
+          <span>Back to Dashboards</span>
         </button>
 
         <h1>Library <span class="highlight">Analytics</span></h1>
