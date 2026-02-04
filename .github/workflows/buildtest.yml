@@ -2,7 +2,7 @@ name: Build and Deploy to InfinityFree
 
 on:
   push:
-    branches: 
+    branches:
       - main
 
 jobs:
@@ -18,10 +18,21 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
-          cache-dependency-path: package-lock.json
 
       - name: Install dependencies
         run: npm install
+
+      # Ensure you create the .htaccess file BEFORE build
+      - name: Create .htaccess for Vue Router
+        run: |
+          echo '<IfModule mod_rewrite.c>
+            RewriteEngine On
+            RewriteBase /
+            RewriteRule ^index\.html$ - [L]
+            RewriteCond %{REQUEST_FILENAME} !-f
+            RewriteCond %{REQUEST_FILENAME} !-d
+            RewriteRule . /index.html [L]
+          </IfModule>' > public/.htaccess
 
       - name: Build project
         run: npm run build
@@ -29,8 +40,10 @@ jobs:
       - name: Sync files to InfinityFree
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          server: ${{secrets.FTP_SERVER}}
-          username: ${{secrets.FTP_USERNAME}}
-          password: ${{secrets.FTP_PASSWORD}}
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          security: loose
           local-dir: ./dist/
-          server-dir: ./htdocs/
+          server-dir: htdocs/
