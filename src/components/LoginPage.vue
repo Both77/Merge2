@@ -11,7 +11,7 @@
 
       <form @submit.prevent="handleLogin" class="auth-form">
         <div class="input-group">
-          <label>Usernamez</label>
+          <label>Username</label>
           <input 
             v-model="form.user" 
             type="text" 
